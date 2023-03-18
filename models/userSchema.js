@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
+const config = require("../config");
 
 // Create user schema
 const userSchema = mongoose.Schema(
@@ -47,8 +48,9 @@ userSchema.methods = {
         _id: this._id,
         name: this.name,
       },
+      config.JWT_SECRET,
       {
-        expiresIn: process.env.JWT_EXPIRY,
+        expiresIn: config.JWT_EXPIRY,
       }
     );
   },
