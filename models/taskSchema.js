@@ -21,12 +21,16 @@ const taskSchema = mongoose.Schema(
       enum: ["pending", "completed", "canceled", "deleted"],
       default: ["pending"],
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-
-// Export the user model
+// Export the task model
 module.exports = mongoose.model("Task", taskSchema);

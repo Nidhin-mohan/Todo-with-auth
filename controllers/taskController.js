@@ -3,7 +3,6 @@ const asyncHandler = require("../services/asyncHandler");
 const CustomError = require("../utils/customError");
 
 
-
 //create task
 exports.createTask = asyncHandler(async (req, res) => {
   const { title, description, priority } = req.body;
@@ -20,11 +19,12 @@ exports.createTask = asyncHandler(async (req, res) => {
     throw new CustomError("Task already exists", 400);
   }
 
-  // Create a new task document in the database
+  // Create a new task document in the database with user info
   const task = await Task.create({
     title,
     description,
     priority,
+    user: req.user._id, // add the user ID to the task document
   });
 
   // Send a response with the newly created task document
@@ -34,6 +34,7 @@ exports.createTask = asyncHandler(async (req, res) => {
     task,
   });
 });
+
 
 
 // Get all tasks sorted by priority

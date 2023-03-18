@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Register - TodoList</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      integrity="sha512-3E3qOyPXakO8zKLSSZj+CpZzJiR9XH8KBRxlItmdxU20g6y0J6jKcHWh5Fvjqciz5Z5E5bPOjGxUxvzeU6biSw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <header class="text-gray-600 body-font">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <span class="ml-3 text-xl">TodoList</span>
+        </a>
+        <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+          <a href="/" class="mr-5 hover:text-gray-900">Home</a>
+          <a href="/login" class="mr-5 hover:text-gray-900 font-bold">Login</a>
+          <a href="/register" class="mr-5 hover:text-gray-900 font-bold">register</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mx-auto container pt-16 pb-8 px-4">
+      <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
+        <div class="md:flex">
+          <div class="w-full px-6 py-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Register</h2>
+            <form action="/api/v1/auth/signup" method="POST">
+              <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold mb-2">
+                  Name
+                </label>
+                <input
+                  type="name"
+                  id="name"
+                  name="name"
+                  class="bg-gray-200 rounded-md py-2 px-3 focus:outline-none focus:shadow-outline w-full"
+                  required
+                />
+              </div>
+              <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-bold mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="bg-gray-200 rounded-md py-2 px-3 focus:outline-none focus:shadow-outline w-full"
+                  required
+                />
+              </div>
+              <div class="mb-4">
+                <label for="password" class="block text-gray-700 font-bold mb-2">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="bg-gray-200 rounded-md py-2 px-3 focus:outline-none focus:shadow-outline w-full"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="bg-gray-800 text-white rounded-md py-2 px-4 hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+              >
+                Register
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
