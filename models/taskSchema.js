@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const taskSchema = mongoose.Schema(
   {
     title: {
@@ -24,3 +26,7 @@ const taskSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+
+// Export the user model
+module.exports = mongoose.model("Task", taskSchema);

@@ -13,6 +13,7 @@ app.use(morgan("tiny"));
 
 //import all routes
 const user = require("./routes/userRoute");
+const task = require("./routes/taskRoute");
 
 
 // Define a route for the home page
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 
 //router middleware
 app.use("/api/v1/auth", user);
+app.use("/api/v1/task", task);
 
 
 //  "not found" route
