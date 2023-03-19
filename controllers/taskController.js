@@ -1,4 +1,5 @@
 const Task = require("../models/taskSchema");
+const User = require("../models/userSchema");
 const asyncHandler = require("../services/asyncHandler");
 const CustomError = require("../utils/customError");
 
@@ -93,6 +94,47 @@ exports.deleteTask = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Task deleted successfully",
+  });
+});
+
+
+// Get counts of different types of tasks
+exports.getTaskCounts = asyncHandler(async (req, res) => {
+  const userId = req.user._id; // Get the ID of the user
+  const counts = {
+    pending: 0,
+    canceled: 0,
+    deleted: 0,
+    completed: 0,
+  };
+
+  // Count pending tasks
+  counts.pending = await Task.countDocuments({
+    user: userId,
+    status: "pending",
+  });
+
+  // Count canceled tasks
+  counts.canceled = await Task.countDocuments({
+    user: userId,
+    status: "canceled",
+  });
+  // Count deleted tasks
+  const { tasksDeleted } = await User.findById(userId).select(
+    "tasksDeleted -_id"
+  );
+  counts.deleted = tasksDeleted;
+
+  // Count completed tasks
+  counts.completed = await Task.countDocuments({
+    user: userId,
+    status: "completed",
+  });
+
+  // Return the counts in the response
+  res.status(200).json({
+    success: true,
+    counts,
   });
 });
 
