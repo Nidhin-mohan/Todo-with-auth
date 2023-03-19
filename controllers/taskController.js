@@ -5,10 +5,10 @@ const CustomError = require("../utils/customError");
 
 //create task
 exports.createTask = asyncHandler(async (req, res) => {
-  const { title, description, priority } = req.body;
+  const { title, priority } = req.body;
 
   // Check if all required fields are present in the request body
-  if (!title || !description || !priority) {
+  if (!title || !priority) {
     throw new CustomError("All fields required", 400);
   }
 
@@ -22,7 +22,6 @@ exports.createTask = asyncHandler(async (req, res) => {
   // Create a new task document in the database with user info
   const task = await Task.create({
     title,
-    description,
     priority,
     user: req.user._id, // add the user ID to the task document
   });
@@ -34,18 +33,18 @@ exports.createTask = asyncHandler(async (req, res) => {
     task,
   });
 });
-
-
-
-// Get all tasks sorted by priority
+// Get all tasks sorted by status and priority for current user
 exports.getAllTasks = asyncHandler(async (req, res) => {
-  // Find all tasks in the database and sort by priority in ascending order
-  const tasks = await Task.find().sort({ priority: 1 });
+  // Find all tasks in the database that belong to the current user and sort by status and priority
+  const tasks = await Task.find({ user: req.user._id }).sort({
+    status: -1,
+    priority: 1,
+  });
 
   // Send a response with the tasks
   res.status(200).json({
     success: true,
-    message: "Successfully fetched all tasks",
+    message: "Successfully fetched all tasks for current user",
     tasks,
   });
 });

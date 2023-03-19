@@ -4,7 +4,7 @@ const router = express.Router();
 const { isLoggedIn } = require("../middlewares/authMiddleware");
 const { createTask, getAllTasks, updateTask, deleteTask } = require("../controllers/taskController");
 
-router.route("/").get((req, res) => {
+router.route("/delete").delete((req, res) => {
   res.json({ message: "hi" });
 });
 router.route("/create").post(isLoggedIn, createTask);

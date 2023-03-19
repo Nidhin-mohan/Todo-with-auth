@@ -17,10 +17,10 @@ const user = require("./routes/userRoute");
 const task = require("./routes/taskRoute");
 
 
-// // Define a route for the home page
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+// Define a route for the home page
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // // Define a route for the login page
 // app.get("/login", (req, res) => {

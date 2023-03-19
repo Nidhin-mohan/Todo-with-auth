@@ -6,10 +6,6 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: [true, `Task title is required`],
     },
-    description: {
-      type: String,
-      required: [true, `Task description is required`],
-    },
     priority: {
       type: Number,
       required: true,
