@@ -72,10 +72,10 @@ exports.updateTask = asyncHandler(async (req, res) => {
   });
 });
 
-
 // Delete a task
 exports.deleteTask = asyncHandler(async (req, res) => {
   const { taskId } = req.params;
+  const userId = req.user._id; // Get the ID of the user who deleted the task
 
   // Find and delete task by ID
   const task = await Task.findByIdAndDelete(taskId);
@@ -85,10 +85,15 @@ exports.deleteTask = asyncHandler(async (req, res) => {
     throw new CustomError("Task not found", 404);
   }
 
+  // Increment the tasksDeleted field of the user who deleted the task
+  const user = await User.findById(userId);
+  await user.incrementTasksDeleted();
+
   // Return success response
   res.status(200).json({
     success: true,
     message: "Task deleted successfully",
   });
 });
+
 

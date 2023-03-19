@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema(
       required: [true, "password is required"],
       minLength: [6, "password must be atleast 6 character"],
     },
+    tasksDeleted: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
@@ -53,6 +57,12 @@ userSchema.methods = {
         expiresIn: config.JWT_EXPIRY,
       }
     );
+  },
+
+  // Increment tasksDeleted field when a task is deleted
+  incrementTasksDeleted: async function () {
+    this.tasksDeleted += 1;
+    await this.save();
   },
 };
 
