@@ -1,0 +1,157 @@
+openapi: "3.0.0"
+info:
+  title: Todo-List API
+  description: Todo list api to manage todo
+  version: 1.1.0
+ 
+
+servers:
+  - url: "{protocol}://{url}/api/{version}"
+    description: for local host 
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+      url:
+        enum:
+          - https://todo-with-auth-production.up.railway.app
+          - localhost:5000
+         
+        default: https://todo-with-auth-production.up.railway.app
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - User
+      summary: signup a new user. required fields are - name, email, password 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  required: true
+                email:
+                  type: string
+                password:
+                  type: string               
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string                    
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /auth/login:
+    post:
+      tags:
+        - User
+      summary: login a new user. required fields are - email and password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                                        
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /auth/logout:
+    post:
+      tags:
+        - User
+      summary: get request to logout the user. 
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
